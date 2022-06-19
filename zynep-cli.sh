@@ -1,74 +1,41 @@
 #!/bin/bash
 
-cat header.txt
+cat header/header.txt
 
-function getMnemonic() {
-    echo "Add your mnemonic: "
-    read -p "#? " mnemonic
-    echo ""
-}
+# Getting mnemonic
+echo "Add your mnemonic: "
+read -p "#? " mnemonic
+echo ""
+
+# Getting httpProvider
+echo "Add your HTTP provider URL: "
+read -p "#? " httpProvider
+echo ""
+
+# Getting initialSuply
+echo "Add your Initial Suply: "
+read -p "#? " initialSuply
+echo ""
+sed "s/_initialAmount/$initialSuply/g" contracts/erc20.sol > contracts/1erc20.sol
+
+# Getting decimals
+echo "Add your Decimals: "
+read -p "#? " decimals
+echo ""
+sed "s/_decimalUnits/$decimals/g" contracts/1erc20.sol > contracts/2erc20.sol
+
+# Getting token tokenName
+echo "Add your Token Name: "
+read -p "#? " tokenName
+echo ""
+sed "s/_tokenName/$tokenName/g" contracts/2erc20.sol > contracts/3erc20.sol
 
 
-function getNetwork() {
-    NETWORK=0
-    echo 'Please choice your blockchain network: '
-    options=("ERC-20" "BEP-20" "TRC-20" "POS-20")
-    select opt in "${options[@]}"
-    do
-        case $opt in
-            "ERC-20")
-                local NETWORK=ERC-20
-                ;;
-            "BEP-20")
-                local NETWORK=BEP-20
-                ;;
-            "TRC-20")
-                local NETWORK=TRC-20
-                ;;
-            "POS-20")
-                local NETWORK=POS-20
-                ;;
-            *) echo "invalid option $REPLY";;
-        esac
-    done
-}
-
-function getHttpProvider() {
-    echo "Add your HTTP provider URL: "
-    read -p "#? " httpProvider
-    echo ""
-}
-
-#function getTokenType() {}
-
-function getInitialSuply() {
-    echo "Add your Initial Suply: "
-    read -p "#? " initialSuply
-    echo ""
-}
-
-function getDecimals() {
-    echo "Add your Decimals: "
-    read -p "#? " decimals
-    echo ""
-}
-
-function getTokenName() {
-    echo "Add your Token Name: "
-    read -p "#? " tokenName
-    echo ""
-}
-
-function getTokenSymbol() {
-    echo "Add your Token Symbol: "
-    read -p "#? " tokenSymbol
-    echo ""
-}
-
-getMnemonic
-#getNetwork
-getHttpProvider
-getInitialSuply
-getDecimals
-getTokenName
-getTokenSymbol
+# Getting tokenSymbol
+echo "Add your Token Symbol: "
+read -p "#? " tokenSymbol
+echo ""
+sed "s/_tokenSymbol/$tokenSymbol/g" contracts/2erc20.sol > truffle/contracts/Standard_Token.sol
+cd contracts
+rm 1erc20.sol 2erc20.sol 3erc20.sol
+cd ..
