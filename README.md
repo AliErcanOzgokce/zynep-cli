@@ -61,7 +61,7 @@ chmod +x zynep-cli.sh
 5. Run the app
 
 ```bash
-./zynep-cli
+./zynep-cli.sh
 ```
 
 That's All!!!
