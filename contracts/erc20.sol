@@ -1,4 +1,4 @@
-
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 interface Token {
@@ -30,9 +30,9 @@ contract Standard_Token is Token {
     constructor() {
         balances[msg.sender] = _initialAmount;               // Give the creator all initial tokens
         totalSupply = _initialAmount;                        // Update total supply
-        name = _tokenName;                                   // Set the name for display purposes
+        name = "_tokenName";                                   // Set the name for display purposes
         decimals = _decimalUnits;                            // Amount of decimals for display purposes
-        symbol = _tokenSymbol;                               // Set the symbol for display purposes
+        symbol = "_tokenSymbol";                               // Set the symbol for display purposes
     }
 
     function transfer(address _to, uint256 _value) public override returns (bool success) {
